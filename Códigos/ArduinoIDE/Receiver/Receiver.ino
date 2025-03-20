@@ -1,8 +1,3 @@
-
-
-// MAC address: 30:C6:F7:B6:E0:90
-// { 0x30, 0xC6, 0xF7, 0xB6, 0x9E0, 0x90 }
-
 #include <esp_now.h>
 #include <WiFi.h>
 

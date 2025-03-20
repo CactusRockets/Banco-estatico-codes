@@ -1,7 +1,3 @@
-
-// MAC address: E4:65:B8:1B:64:DC
-// { 0xE4, 0x65, 0xB8, 0x1B, 0x64, 0xDC }
-
 #include <HX711.h>
 #include <SPI.h>
 #include <SD.h>
@@ -19,7 +15,9 @@
 #define       SCK          2       // SCK HX711
 #define       CS_SDPIN     4       // CS Cartão SD
 
-#define FATOR_CALIBRACAO -50000
+#define FATOR_CALIBRACAO -8000
+
+// #define FATOR_CALIBRACAO -50000
 
 #define USE_STORAGE true
 #define USE_WIFI true
@@ -36,7 +34,8 @@ HX711 escala;
 
 File myFile;
 
-uint8_t broadcastAddress[] = { 0x30, 0xC6, 0xF7, 0xB6, 0x9E0, 0x90 };
+// 30:C9:22:39:10:9C
+uint8_t broadcastAddress[] = { 0x30, 0xC9, 0x22, 0x39, 0x10, 0x9C };
 
 // Estrutura para envio dos dados. Deve ser a mesma tanto no emissor como no receptor.
 typedef struct struct_message
