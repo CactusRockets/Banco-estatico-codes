@@ -3,21 +3,21 @@
 #include <SD.h>
 
 // Biblioteca do ESP-NOW
-#include <esp_now.h>
+#include <esp_now.h>  
 #include <WiFi.h>
 
 //------------------------------------------------------------------------------------
 // Definindo pinos I/O 
 //------------------------------------------------------------------------------------
-#define       pino_led     5
-#define       LedBoard     12      // Led de indicação de funcionamento
-#define       DT           15      // DT HX711
-#define       SCK          2       // SCK HX711
-#define       CS_SDPIN     4       // CS Cartão SD
+#define       pino_led       5
+#define       LedBoard_aux1  34      // Led de indicação de funcionamento (aux)
+#define       LedBoard_aux2  35      // Led de indicação de funcionamento (aux)
+#define       LedBoard       32      // Led de indicação de funcionamento
+#define       DT             15      // DT HX711
+#define       SCK            2       // SCK HX711
+#define       CS_SDPIN       4       // CS Cartão SD
 
-#define FATOR_CALIBRACAO -8000
-
-// #define FATOR_CALIBRACAO -50000
+#define FATOR_CALIBRACAO 50000
 
 #define USE_STORAGE true
 #define USE_WIFI true
@@ -34,8 +34,8 @@ HX711 escala;
 
 File myFile;
 
-// 30:C9:22:39:10:9C
-uint8_t broadcastAddress[] = { 0x30, 0xC9, 0x22, 0x39, 0x10, 0x9C };
+// F4:65:0B:E7:1F:80
+uint8_t broadcastAddress[] = { 0xF4, 0x65, 0x0B, 0xE7, 0x1F, 0x80 };
 
 // Estrutura para envio dos dados. Deve ser a mesma tanto no emissor como no receptor.
 typedef struct struct_message
@@ -69,8 +69,8 @@ void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len)
 // Callback when data is sent
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 
-  Serial.print("Last Packet Send Status: ");
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+  // Serial.print("Last Packet Send Status: ");
+  // Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 
   if (status == 0){
     success = "Delivery Success!";
@@ -78,7 +78,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   else{
     success = "Delivery Fail!";
   }
-  Serial.println(">>>>>");
+  // Serial.println(">>>>>");
 }
 
 void setupESPNOW() {
@@ -154,7 +154,7 @@ void writeOnSD(String str) {
   myFile = SD.open("/data.txt", FILE_APPEND);
 
   if (myFile) {
-    Serial.println("(Dados Gravados!)");
+    // Serial.println("(Dados Gravados!)");
     myFile.println(str);
     myFile.close();
 
@@ -164,19 +164,22 @@ void writeOnSD(String str) {
 }
 
 void setup() {
-  pinMode(LedBoard, OUTPUT);  
-  digitalWrite(LedBoard, LOW);
-            
+  delay(1000);
+
+  pinMode(LedBoard_aux1, INPUT);
+  pinMode(LedBoard_aux2, INPUT);
+  pinMode(LedBoard, OUTPUT);
+
   Serial.begin(115200);
   Serial.println("Modulo Incializado");
 
   Serial.println("Inicializando e calibrando Celula de carga");  
   // Inicializacao e definicao dos pinos DT e SCK dentro do objeto ESCALA
   escala.begin(DT, SCK);
-  // Tara a balança
-  escala.tare();
   // Ajusta a escala para o fator de calibracao
   escala.set_scale(FATOR_CALIBRACAO);
+  // Tara a balança
+  escala.tare();
 
   if(USE_STORAGE) {
     setupSd();
@@ -192,7 +195,7 @@ void loop() {
   if (escala.is_ready()) {
     force = (escala.get_units()) * 9.8;
     timeMillis = millis();
-    informations = String(timeMillis) + "," + String(force, 3) + "," + String(FATOR_CALIBRACAO);
+    informations = String(timeMillis) + "," + String(force, 3);
 
     Serial.println(informations);
     if(USE_STORAGE) {
@@ -205,10 +208,10 @@ void loop() {
 
       esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
       if (result == ESP_OK) {
-        Serial.println("Sent with success");
+        // Serial.println("Sent with success");
       }
       else {
-        Serial.println("Error sending the data");
+        // Serial.println("Error sending the data");
       }
     }
 
@@ -219,6 +222,6 @@ void loop() {
     delay(120);
     
   } else {
-    Serial.println("Erro de Leitura");
+    // Serial.println("Erro de Leitura");
   }   
 }

@@ -28,7 +28,7 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   tempo = receive_Data.tempo;
   forca = receive_Data.forca;
 
-  String informations = tempo + "s" + "," + forca + "N";
+  String informations = tempo + "," + forca;
   Serial.println(informations);
 }
 
