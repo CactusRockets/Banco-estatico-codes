@@ -89,11 +89,11 @@ void setup() {
   Serial.println("Modulo Incializado");
 
   Serial.println("Inicializando e calibrando Celula de carga");  
-  // inicializacao e definicao dos pinos DT e SCK dentro do objeto ESCALA
+  // Inicializacao e definicao dos pinos DT e SCK dentro do objeto ESCALA
   escala.begin(DT, SCK);
   // Tara a balança
   escala.tare();
-  // ajusta a escala para o fator de calibracao
+  // Ajusta a escala para o fator de calibração
   escala.set_scale(FATOR_CALIBRACAO);
 
   // Coloque o objeto na balança até o final do tempo
@@ -117,8 +117,10 @@ void loop() {
   
   if (escala.is_ready()) {
     peso = (escala.get_units());
-    informations = String(peso_conhecido) + "N" + "," + String(peso, 3) + "N" + "," + String(FATOR_CALIBRACAO);
+    informations = 
+      String(peso_conhecido) + "N" + "," + String(peso, 3) + "N" + "," + String(FATOR_CALIBRACAO);
     Serial.println(informations);
+      
     if(USE_STORAGE) {
       writeOnSD(informations);
     }
@@ -164,5 +166,5 @@ void loop() {
   } else {
     Serial.println("Erro de Leitura");
   }   
-  digitalWrite(LedBoard, HIGH);         
+  digitalWrite(LedBoard, HIGH);       
 }
