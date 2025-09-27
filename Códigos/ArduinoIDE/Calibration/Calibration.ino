@@ -116,7 +116,7 @@ void loop() {
   digitalWrite(LedBoard, LOW);
   
   if (escala.is_ready()) {
-    peso = (escala.get_units()) * 9.8;
+    peso = (escala.get_units());
     informations = String(peso_conhecido) + "N" + "," + String(peso, 3) + "N" + "," + String(FATOR_CALIBRACAO);
     Serial.println(informations);
     if(USE_STORAGE) {

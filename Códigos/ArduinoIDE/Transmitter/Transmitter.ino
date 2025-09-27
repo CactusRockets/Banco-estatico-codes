@@ -193,7 +193,7 @@ void setup() {
 void loop() {
   
   if (escala.is_ready()) {
-    force = (escala.get_units()) * 9.8;
+    force = (escala.get_units());
     timeMillis = millis();
     informations = String(timeMillis) + "," + String(force, 3);
 
