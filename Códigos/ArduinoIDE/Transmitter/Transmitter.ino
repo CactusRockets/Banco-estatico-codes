@@ -17,7 +17,7 @@
 #define       SCK            2       // SCK HX711
 #define       CS_SDPIN       4       // CS Cartão SD
 
-#define FATOR_CALIBRACAO 50000
+#define FATOR_CALIBRACAO -10000
 
 #define USE_STORAGE true
 #define USE_WIFI true
@@ -82,7 +82,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 }
 
 void setupESPNOW() {
-    // Coloca o dispositivo no modo Wi-Fi Station
+  // Coloca o dispositivo no modo Wi-Fi Station
   WiFi.mode(WIFI_STA);
 
   // Inicializa o ESP-NOW
@@ -154,7 +154,6 @@ void writeOnSD(String str) {
   myFile = SD.open("/data.txt", FILE_APPEND);
 
   if (myFile) {
-    // Serial.println("(Dados Gravados!)");
     myFile.println(str);
     myFile.close();
 

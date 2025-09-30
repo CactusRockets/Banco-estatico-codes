@@ -16,8 +16,8 @@
 #define Reajuste_medio 100
 #define Reajuste_minimo 50
 
-#define massa_conhecida 18.5
-#define fator_calibracao_inicial -50000
+#define massa_conhecida 2
+#define fator_calibracao_inicial -10000
 
 #define USE_STORAGE true
 
@@ -72,7 +72,7 @@ void writeOnSD(String str) {
   myFile = SD.open("/data.txt", FILE_APPEND);
 
   if (myFile) {
-    Serial.println("(Dados Gravados!)");
+    // Serial.println("(Dados Gravados!)");
     myFile.println(str);
     myFile.close();
 
@@ -110,7 +110,6 @@ void setup() {
     setupSd();
   }
 }
-//====================================================================================
 
 void loop() {
   digitalWrite(LedBoard, LOW);

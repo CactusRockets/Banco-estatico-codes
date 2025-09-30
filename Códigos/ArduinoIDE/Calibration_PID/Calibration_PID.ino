@@ -10,8 +10,8 @@
 #define DT       15
 #define SCK      2
 
-#define massa_conhecida 18.5
-#define fator_calibracao_inicial -50000
+#define massa_conhecida 2
+#define fator_calibracao_inicial -10000
 
 #define USE_STORAGE true
 
@@ -113,7 +113,8 @@ void loop() {
     FATOR_CALIBRACAO += (int)output;   
     escala.set_scale(FATOR_CALIBRACAO);
 
-    informations = String(peso_conhecido) + "N," + String(peso, 3) + "N," + String(FATOR_CALIBRACAO);
+    informations =
+      String(peso_conhecido) + "N," + String(peso, 3) + "N," + String(FATOR_CALIBRACAO);
     Serial.println(informations);
 
     if(USE_STORAGE) {
