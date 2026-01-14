@@ -4,6 +4,8 @@ Projeto eletrônico desenvolvido para leitura de **empuxo de motores foguete**, 
 
 O sistema realiza a **aquisição, calibração, armazenamento e transmissão em tempo real da força (empuxo)** medida por células de carga, utilizando microcontroladores ESP32.
 
+Para usar conseguir usar estes códigos propriamente, basta ter o Arduino IDE instalado em sua máquina e configurado para ESP32.
+
 ---
 
 ## Funcionamento Geral
