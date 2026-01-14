@@ -6,7 +6,6 @@ O sistema realiza a **aquisição, calibração, armazenamento e transmissão em
 
 Para usar conseguir usar estes códigos propriamente, basta ter o Arduino IDE instalado em sua máquina e configurado para ESP32.
 
----
 
 ## Funcionamento Geral
 
@@ -18,7 +17,6 @@ Após a conversão, os dados são gravados em um cartão microSD e transmitidos 
 
 Foi adotada uma conexão USB macho/fêmea entre as células de carga e o HX711 com o objetivo de facilitar a modularidade do sistema. Dessa forma, é possível adicionar ou remover células de carga para alterar o empuxo máximo suportado sem modificar o restante do circuito. Sempre que essa configuração for alterada, a calibração deve ser refeita via software.
 
----
 
 ## Estrutura do Sistema
 
@@ -26,7 +24,6 @@ O sistema foi projetado de forma modular e é dividido em duas partes principais
 
 Para que o sistema funcione corretamente, ambos os módulos devem estar configurados de maneira compatível, especialmente no que diz respeito à comunicação via ESP-NOW.
 
----
 
 ## Requisitos de Software
 
@@ -34,7 +31,6 @@ Para utilizar o sistema, é necessário ter a Arduino IDE instalada e configurad
 
 As bibliotecas utilizadas são a HX711 (versão 0.7.3), responsável pela comunicação com o conversor HX711, e a biblioteca SD (versão 1.2.4), utilizada para gravação dos dados no cartão microSD.
 
----
 
 ## Calibração da Célula de Carga
 
@@ -50,7 +46,6 @@ Força (N) = massa (kg) × gravidade (9,8 m/s²)
 
 Ao final do processo, o Monitor Serial exibirá os valores de fator de calibração e offset prontos para serem utilizados no código do transmissor. Sempre que a célula de carga, a configuração mecânica ou o número de células for alterado, a calibração deve ser refeita.
 
----
 
 ## Configuração do Transmissor
 
@@ -58,7 +53,6 @@ Após a obtenção dos parâmetros de calibração, o arquivo `Transmitter.ino` 
 
 Além disso, o código permite habilitar ou desabilitar a gravação dos dados no cartão microSD e a transmissão via ESP-NOW, de acordo com a necessidade do ensaio. Essa flexibilidade permite que o sistema seja utilizado tanto em testes simples quanto em campanhas completas de aquisição de dados.
 
----
 
 ## Configuração do Endereço MAC (ESP-NOW)
 
@@ -68,30 +62,25 @@ O endereço MAC pode ser obtido executando o código `Get_MAC_address.ino` no ES
 
 Após essa configuração, o transmissor estará apto a enviar os dados diretamente para o receptor.
 
----
 
 ## Configuração do Receptor
 
 A configuração do receptor é simples e consiste apenas em realizar o upload do código `Receiver.ino` no ESP32 responsável pela recepção. Uma vez configurado, o receptor passará a exibir em tempo real o tempo da medição e a força medida pelo sistema transmissor.
 
----
 
 ## Aquisição e Armazenamento de Dados
 
 Cada amostra adquirida pelo sistema contém o instante de tempo em milissegundos, a força medida em Newtons, além dos valores de fator de calibração e offset utilizados. Essas informações são exibidas no Monitor Serial, gravadas no arquivo `data.txt` no cartão microSD e transmitidas em tempo real para o receptor por meio do ESP-NOW.
 
----
 
 ## Observações Importantes
 
 A calibração deve ser refeita sempre que houver troca da célula de carga, alteração da configuração mecânica, mudança no número de células utilizadas e quanto algum teste de empuxo for ser realizado. O sistema mede diretamente força, expressa em Newtons, e não massa. Para garantir que as leituras estão de fato corretas, é aconselhado que dois pesos diferentes sejam ultilizados na calibração. Em leituras com alta taxa de amostragem, é esperado que haja algum nível de ruído nos dados.
 
----
 
 ## Links
 
-* [Relatório do sistema antigo](https://drive.google.com/file/d/1Hbn8Wrecm2mFYuo-eOkDm_AL81IvbxrG/view?usp=sharing)
+[Relatório do sistema antigo](https://drive.google.com/file/d/1Hbn8Wrecm2mFYuo-eOkDm_AL81IvbxrG/view?usp=sharing)
 
----
 
 Projeto desenvolvido para fins acadêmicos e experimentais na área de instrumentação, aquisição de dados e sistemas embarcados.
