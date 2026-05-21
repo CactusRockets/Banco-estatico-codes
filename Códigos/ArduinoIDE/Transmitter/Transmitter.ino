@@ -21,8 +21,8 @@
 
 // ------------------------------------------------------------------------------------
 // Parâmetros de calibração (obtidos pelo código de calibração)
-#define FATOR_CALIBRACAO -227.847488
-#define OFFSET_HX711     -12309
+#define FATOR_CALIBRACAO -224.403168
+#define OFFSET_HX711     -7316
 
 // ------------------------------------------------------------------------------------
 // Variáveis globais
